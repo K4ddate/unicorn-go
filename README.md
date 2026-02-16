@@ -10,7 +10,7 @@ _(Does not handle most errors for brevity. Please see sample.go for a more hygen
 
     import (
         "fmt"
-        uc "github.com/unicorn-engine/unicorn/bindings/go/unicorn"
+        uc "github.com/unicorn-engine/unicorn-go"
     )
 
     func main() {
