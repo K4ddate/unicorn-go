@@ -1,0 +1,27 @@
+name: Generate golang constants
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  generate_golang_constants:
+    runs-on: python-latest
+    steps:
+      - name: Clone unicorn-engine repo
+      - run: |
+          cd build
+          git clone https://github.com/unicorn-engine/unicorn
+
+      - name: generate files
+      - run: |
+          python3 ./const_generator.py -i ./unicorn/include/unicorn -o ..
+
+      - name: Commit and push
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git diff --staged --quiet || git commit -m "update go constants files"
+          git push
