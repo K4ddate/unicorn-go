@@ -1,3 +1,5 @@
+name: Push on main trigger
+
 on:
   push:
     branches:
