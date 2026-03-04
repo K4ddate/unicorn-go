@@ -7,7 +7,7 @@ on:
 
 jobs:
   generate_golang_constants:
-    runs-on: python-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Clone unicorn-engine repo
         run: |
