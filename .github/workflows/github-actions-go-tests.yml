@@ -1,16 +1,41 @@
-name: Run Go Tests
-
 on:
   push:
     branches:
       - main
       - dev
 
-env:
-  unicorn_latest_tag: ""
-
 jobs:
+  generate_golang_constants:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Clone unicorn-engine repo
+        run: |
+          cd build
+          git clone https://github.com/unicorn-engine/unicorn
+
+      - name: generate files
+        run: |
+          cd build
+          python3 ./const_generator.py -i ./unicorn/include/unicorn -o ..
+          go fmt ..
+
+      - name: Clean up workspace
+        run: |
+          cd build
+          rm -rf ./unicorn
+
+      - name: Commit and push
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git diff --staged --quiet || git commit -m "update go constants files"
+          git push
   needs: generate_golang_constants
+
   run_go_tests_on_latest_release:
     runs-on: ubuntu-latest
     steps:
