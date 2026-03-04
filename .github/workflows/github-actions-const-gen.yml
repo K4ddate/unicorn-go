@@ -22,6 +22,10 @@ jobs:
           cd build
           python3 ./const_generator.py -i ./unicorn/include/unicorn -o ..
 
+      - name: Clean up workspace
+        run: |
+          rm -rf ./unicorn
+
       - name: Commit and push
         run: |
           git config user.name  "github-actions[bot]"
