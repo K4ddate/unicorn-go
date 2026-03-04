@@ -21,6 +21,7 @@ jobs:
         run: |
           cd build
           python3 ./const_generator.py -i ./unicorn/include/unicorn -o ..
+          go fmt ..
 
       - name: Clean up workspace
         run: |
