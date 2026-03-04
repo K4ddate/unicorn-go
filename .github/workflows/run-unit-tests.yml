@@ -1,9 +1,13 @@
 name: Run unit tests
 
 on:
-  push:
+  workflow_run:
+    workflows:
+      - "Generate golang constants"
     branches:
       - main
+    types:
+      - completed # ensure the generation of constants is finished before running tests
   workflow_dispatch:
     inputs:
       unicorn_ref:
