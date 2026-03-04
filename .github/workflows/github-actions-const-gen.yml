@@ -19,6 +19,7 @@ jobs:
 
       - name: generate files
         run: |
+          cd build
           python3 ./const_generator.py -i ./unicorn/include/unicorn -o ..
 
       - name: Commit and push
